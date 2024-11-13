@@ -16,6 +16,11 @@ sed -i "s/^Port .*/Port $NEW_PORT/" $CONFIG_FILE
 
 ufw allow $NEW_PORT/tcp
 
+chmod 600 ~/.ssh/authorized_keys
+
+sed -i.bak 's/^#\?PasswordAuthentication .*/PasswordAuthentication no/' /etc/ssh/sshd_config
+sed -i.bak 's/^#\?PubkeyAuthentication .*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+
 systemctl restart ssh
 
 echo "Порт изменен на $NEW_PORT и разрешен в UFW."
