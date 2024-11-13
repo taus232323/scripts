@@ -1,5 +1,11 @@
 #!/bin/bash
-NEW_PORT=2323
+
+read -p "Введите новый порт: " NEW_PORT
+
+if ! [[ "$NEW_PORT" =~ ^[0-9]+$ ]] || [ "$NEW_PORT" -lt 1 ] || [ "$NEW_PORT" -gt 65535 ]; then
+    echo "Ошибка: Порт должен быть числом от 1 до 65535."
+    exit 1
+fi
 
 CONFIG_FILE="/etc/ssh/sshd_config"
 
